@@ -10,7 +10,7 @@
       playerInstance.setup({
         "playlist": [
           {
-            "files": sources,
+            "file": sources,
 }, ]
       })
     }
