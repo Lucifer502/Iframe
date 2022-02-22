@@ -1,4 +1,6 @@
   window.addEventListener("message", async e => {
+    
+    const r = { 0: '720p', 1: '1080p', 2: '480p', 3: '360p', 4: '240p' };
 
     let video_m3u8_array = e.data.video_config_media;
     let sources = [];
