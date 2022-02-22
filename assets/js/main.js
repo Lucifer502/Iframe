@@ -1,6 +1,7 @@
   window.addEventListener("message", async e => {
 
     let sources = e.data.video_config_media;
+    console.log(sources);
 
     startPlayer();
 
