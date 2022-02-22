@@ -14,8 +14,8 @@
 }, ]
       })
 
-    jwplayer().on('ready', e => {
-    document.body.querySelector(".loading_container").style.display = "none";
- })
+      jwplayer().on('ready', e => {
+        document.body.querySelector(".loading_container").style.display = "none";
+      })
     }
   })
