@@ -6,7 +6,7 @@
     let streamrgx_three = /_,(\d+.mp4),(\d+.mp4),(\d+.mp4),.*?manifest.mpd/;
 
     let video_config_media = e.data.video_config_media;
-    let video_m3u8_array = m3u8ListFromStream(video_config_media[0]);
+    let video_m3u8_array = m3u8ListFromStream(video_config_media);
     let sources = [];
 
     for (let idx of [1, 0, 2, 3, 4])
