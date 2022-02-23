@@ -3,7 +3,7 @@
     const r = { 0: '720p', 1: '1080p', 2: '480p', 3: '360p', 4: '240p' };
 
     let video_config_media = e.data.video_config_media;
-    let video_m3u8_array = video_config_media[0];
+    let video_m3u8_array = video_config_media[1];
     let sources = [];
 
     for (let idx of [1, 0, 2, 3, 4])
