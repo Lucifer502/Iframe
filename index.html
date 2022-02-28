@@ -1,28 +1,50 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-  <title>Crunchyroll Player</title>
-  <link rel="stylesheet" type="text/css" href="assets/css/player.css?v=1">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-  <script src="assets/js/jwplayer.js"></script>
+  <link rel="stylesheet" href="style.css">
+
+  <title>Document</title>
 </head>
 
 <body>
-
-<div class="loading_container">
-    <div class="loading_icon">
-      <svg width="30px" height="30px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="lds-rolling" style="background: none;">
-        <circle cx="50" cy="50" fill="none" ng-attr-stroke="{{config.color}}" ng-attr-stroke-width="{{config.width}}" ng-attr-r="{{config.radius}}" ng-attr-stroke-dasharray="{{config.dasharray}}" stroke="#ffffff" stroke-width="10" r="35" stroke-dasharray="164.93361431346415 56.97787143782138" transform="rotate(159.051 50 50)">
-          <animateTransform attributeName="transform" type="rotate" calcMode="linear" values="0 50 50;360 50 50" keyTimes="0;1" dur="1s" begin="0s" repeatCount="indefinite"></animateTransform>
-        </circle>
-      </svg>
+  <div class="modal-container">
+    <div class="modal">
+      <p class="close">X</p>
+      <div class="download-item">
+        <span class="quality not-copyable">1080p<sup>HD</sup></span>
+        <span id="1080p_down_size" class=" size not-copyable"><img src="assets/icon/fetching-icon.svg" /> MB</span>
+        <a id="1080p_down_url" class="download down-icon" href="javascript:void(0);" target="_top" download="1080p"></a>
+      </div>
+      <div class="download-item">
+        <span class="quality not-copyable">720p<sup>HD</sup></span>
+        <span id="720p_down_size" class="size not-copyable"><img src="assets/icon/fetching-icon.svg" /> MB</span>
+        <a id="720p_down_url" class="download down-icon" href="javascript:void(0);" target="_top" download="720p"></a>
+      </div>
+      <div class="download-item">
+        <span class="quality not-copyable">480p</span>
+        <span id="480p_down_size" class="size not-copyable"><img src="assets/icon/fetching-icon.svg" /> MB</span>
+        <a id="480p_down_url" class="download down-icon" href="javascript:void(0);" target="_top" download="480p"></a>
+      </div>
+      <div class="download-item">
+        <span class="quality not-copyable">360p</span>
+        <span id="360p_down_size" class="size not-copyable"><img src="assets/icon/fetching-icon.svg" /> MB</span>
+        <a id="360p_down_url" class="download down-icon" href="javascript:void(0);" target="_top" download="360p"></a>
+      </div>
+      <div class="download-item">
+        <span class="quality not-copyable">240p</span>
+        <span id="240p_down_size" class="size not-copyable"><img src="assets/icon/fetching-icon.svg" /> MB</span>
+        <a id="240p_down_url" class="download down-icon" href="javascript:void(0);" target="_top" download="240p"></a>
+      </div>
     </div>
   </div>
 
- <div id="player_div"></div>
+  <script src="main.js"></script>
 
-  <script src="assets/js/main.js"></script>
 </body>
 
 </html>
