@@ -1,4 +1,4 @@
-window.addEventListener("message", async e => {ff
+window.addEventListener("message", async e => {
 
   const promises = [],
     request = [];
