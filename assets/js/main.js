@@ -1,11 +1,14 @@
+
 window.addEventListener("message", async e => {
 
-  let video_config_media = e.data.video_config_media;
+  let initial_state = e.data.video_config_media;
   let id = video_config_media.watch.id;
-  console.log(id);
-  console.log(video_config_media);
+  let config_media = initial_state.content.byId[id]
+  let playback = config_media.playback;
+  console.log(playback)
 
-  const streamlist = video_config_media['content']
-  console.log(streamlist)
+
+
+
 
 })
