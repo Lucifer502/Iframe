@@ -1,17 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Crunchyroll Player</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="assets/css/player.css?v=1">
+  <link rel="stylesheet" type="text/css" href="assets/css/modal.css?v=1">
 
-  <link rel="stylesheet" href="assets/css/player.css">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-154158844-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
 
-  <title>Document</title>
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-154158844-1');
+  </script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+  </script>
+  <script src="assets/js/jwplayer.js">
+  </script>
 </head>
 
 <body>
+  <div class="loading_container">
+    <div class="loading_icon">
+      <svg width="30px" height="30px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="lds-rolling" style="background: none;">
+        <circle cx="50" cy="50" fill="none" ng-attr-stroke="{{config.color}}" ng-attr-stroke-width="{{config.width}}" ng-attr-r="{{config.radius}}" ng-attr-stroke-dasharray="{{config.dasharray}}" stroke="#ffffff" stroke-width="10" r="35" stroke-dasharray="164.93361431346415 56.97787143782138" transform="rotate(159.051 50 50)">
+          <animateTransform attributeName="transform" type="rotate" calcMode="linear" values="0 50 50;360 50 50" keyTimes="0;1" dur="1s" begin="0s" repeatCount="indefinite"></animateTransform>
+        </circle>
+      </svg>
+    </div>
+  </div>
   <div class="modal-container">
     <div class="modal">
       <p class="close">X</p>
@@ -42,9 +62,10 @@
       </div>
     </div>
   </div>
-
-  <script src="assets/js/main.js"></script>
-
+  <div id="player_div">
+  </div>
+  <script src="assets/js/player.js">
+  </script>
 </body>
 
 </html>
