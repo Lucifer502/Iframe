@@ -10,11 +10,32 @@ window.addEventListener("message", async e => {
   let playback = e.data.playback;
   let video_config_media = await getStreams(playback);
   let video_mp4_array = [];
+  let sources = [];
 
   let user_lang = 'es-LA';
 
   const streamlist = video_config_media['streams']
   video_mp4_array = mp4ListFromStream(streamlist.adaptive_hls[user_lang].url);
+
+  console.log(video_mp4_array)
+
+  for (let idx of [1, 0, 2, 3, 4]) sources.push({ file: video_mp4_array[idx], label: r[idx] + (idx < 2 ? '<sup><sup>HD</sup></sup>' : '') });
+  startPlayer();
+
+  function startPlayer() {
+
+    let playerInstance = jwplayer('player_div')
+    playerInstance.setup({
+      'playlist': [{
+        'sources': sources
+  }]
+    })
+
+    jwplayer().on('ready', e => {
+
+      document.body.querySelector(".loading_container").style.display = "none";
+    });
+  }
 
   function mp4ListFromStream(url) {
     const cleanUrl = url.replace('evs1', 'evs').replace(url.split("/")[2], "fy.v.vrv.co");
@@ -26,8 +47,6 @@ window.addEventListener("message", async e => {
       res.push(cleanUrl.replace(streamrgx, `_$${(parseInt(i)+1)}`))
     return res;
   }
-
-  console.log(video_mp4_array)
 
   function getAllOrigins(url) {
     return new Promise(async (resolve, reject) => {
