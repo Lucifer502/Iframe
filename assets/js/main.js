@@ -1,4 +1,4 @@
-window.addEventListener('message', async e => {
+window.addEventListener("message", async e => {
 
   let video_config_media = e.data.stream;
 
