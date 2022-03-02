@@ -4,4 +4,7 @@ window.addEventListener("message", async e => {
 
   console.log(video_config_media);
 
+  const streamlist = video_config_media['content']
+  console.log(streamlist)
+
 })
