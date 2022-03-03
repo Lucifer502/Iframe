@@ -11,6 +11,8 @@ window.addEventListener("message", async e => {
   let video_config_media = await getStreams(playback);
   let video_mp4_array = [];
   let sources = [];
+  let thumbnails = e.data.images;
+  console.log(thumbnails[7]);
 
   let user_lang = 'es-LA';
 
@@ -27,7 +29,8 @@ window.addEventListener("message", async e => {
     let playerInstance = jwplayer('player_div')
     playerInstance.setup({
       'playlist': [{
-        'sources': sources
+        'images': thumbnails[7],
+        'sources': sources,
   }]
     })
 
