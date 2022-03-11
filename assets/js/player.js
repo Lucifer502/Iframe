@@ -18,7 +18,8 @@ window.addEventListener("message", async e => {
  const streamlist = video_config_media['streams']
  video_mp4_array = mp4ListFromStream(streamlist.adaptive_hls[user_lang].url);
 
- console.log(video_mp4_array)
+ console.log(video_mp4_array);
+ console.log(video_config_media);
 
  for (let idx of [1, 0, 2, 3, 4]) sources.push({ file: video_mp4_array[idx], label: r[idx] + (idx < 2 ? '<sup><sup>HD</sup></sup>' : '') });
  startPlayer();
