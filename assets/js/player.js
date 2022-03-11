@@ -7,7 +7,7 @@ window.addEventListener("message", async e => {
  let streamrgx = /_,(\d+.mp4),(\d+.mp4),(\d+.mp4),(\d+.mp4),(\d+.mp4),.*?master.m3u8/;
  let streamrgx_three = /_,(\d+.mp4),(\d+.mp4),(\d+.mp4),.*?master.m3u8/;
  let allorigins = "https://crp-proxy.herokuapp.com/get?url=";
- let video_config_media = await getStreams(e.data.guestbook, e.data.playback);
+ let video_config_media = await getStreams(e.data.guestbook);
  let video_mp4_array = [];
  let sources = [];
  let thumbnail = e.data.thumbnail;
