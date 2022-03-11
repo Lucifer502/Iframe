@@ -10,6 +10,7 @@ window.addEventListener("message", async e => {
  let playback = e.data.playback;
  let video_config_media = await getStreams(playback);
  let guestbook = e.data.guestbook;
+ console.log(guestbook);
  let video_mp4_array = [];
  let sources = [];
  let thumbnail = e.data.thumbnail;
