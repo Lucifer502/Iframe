@@ -14,7 +14,8 @@ window.addEventListener("message", async e => {
  let user_lang = 'es-LA';
 
 if(video_config_media < 3){
-video_mp4_array = video_config_media[0];
+video_mp4_array = mp4ListFromStream(video_config_media[0]);
+console.log(video_mp4_array);
 }
 
 
@@ -57,4 +58,16 @@ video_mp4_array = video_config_media[0];
   const metadata = JSON.parse(await getAllOrigins(url));
   return metadata;
  }
+
+function mp4ListFromStream(url) {
+    const cleanUrl = url.replace('evs1', 'evs').replace(url.split("/")[2], "fy.v.vrv.co");
+    const res = [];
+    for (let i in r)
+      if (streamrgx_three.test(cleanUrl) && i <= 2) // por algum motivo alguns videos da CR tem apenas 3 resoluções
+        res.push(cleanUrl.replace(streamrgx_three, `_$${(parseInt(i)+1)}`))
+      else
+        res.push(cleanUrl.replace(streamrgx, `_$${(parseInt(i)+1)}`))
+    return res;
+  }
+
 })
