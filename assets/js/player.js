@@ -13,9 +13,10 @@ window.addEventListener("message", async e => {
  console.log(video_config_media);
  let user_lang = 'es-LA';
 
- 
+if(video_config_media < 3){
+video_mp4_array = video_config_media[0];
+}
 
- 
 
  for (let idx of [1, 0, 2, 3, 4]) sources.push({ file: video_mp4_array[idx], label: r[idx] + (idx < 2 ? '<sup><sup>HD</sup></sup>' : '') });
  startPlayer();
