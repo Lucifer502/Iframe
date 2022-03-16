@@ -9,7 +9,7 @@ window.addEventListener("message", async e => {
  let allorigins = "https://crp-proxy.herokuapp.com/get?url=";
  let video_mp4_array = [];
  let sources = [];
- let video_config_media = e.data.playerInfo;
+ let video_config_media = e.data.metadata;
  console.log(video_config_media);
  let user_lang = 'es-LA';
 
