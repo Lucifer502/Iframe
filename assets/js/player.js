@@ -18,8 +18,10 @@ if(video_config_media < 3){
 video_mp4_array = mp4ListFromStream(video_config_media[0]);
 console.log(video_mp4_array);
 }else{
-streams_locale = await getStreams(video_config_media[3]);
+streams_locale = await getStreams(video_config_media[0]);
 }
+
+console.log(streams_locale);
 
  for (let idx of [1, 0, 2, 3, 4]) sources.push({ file: video_mp4_array[idx], label: r[idx] + (idx < 2 ? '<sup><sup>HD</sup></sup>' : '') });
  startPlayer();
@@ -38,8 +40,6 @@ streams_locale = await getStreams(video_config_media[3]);
    document.body.querySelector(".loading_container").style.display = "none";
   });
  }
-
- 
 
  function getAllOrigins(url) {
   return new Promise(async (resolve, reject) => {
