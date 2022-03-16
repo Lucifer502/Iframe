@@ -8,6 +8,7 @@ window.addEventListener("message", async e => {
  let streamrgx_three = /_,(\d+.mp4),(\d+.mp4),(\d+.mp4),.*?master.m3u8/;
  let allorigins = "https://crp-proxy.herokuapp.com/get?url=";
  let video_mp4_array = [];
+ let streams_locale = "";
  let sources = [];
  let video_config_media = e.data.metadata;
  console.log(video_config_media);
@@ -16,8 +17,9 @@ window.addEventListener("message", async e => {
 if(video_config_media < 3){
 video_mp4_array = mp4ListFromStream(video_config_media[0]);
 console.log(video_mp4_array);
+}else{
+streams_locale = await getStreams(video_config_media[3]);
 }
-
 
  for (let idx of [1, 0, 2, 3, 4]) sources.push({ file: video_mp4_array[idx], label: r[idx] + (idx < 2 ? '<sup><sup>HD</sup></sup>' : '') });
  startPlayer();
