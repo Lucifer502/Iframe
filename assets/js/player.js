@@ -8,7 +8,7 @@ window.addEventListener("message", async e => {
  let sources = [];
  let video_config_media = e.data.metadata;
 
-video_mp4_array = mp4ListFromStream(video_config_media);
+video_mp4_array = mp4ListFromStream(video_config_media[0]);
 
  for (let idx of [1, 0, 2, 3, 4]) sources.push({ file: video_mp4_array[idx], label: r[idx] + (idx < 2 ? '<sup><sup>HD</sup></sup>' : '') });
  startPlayer();
