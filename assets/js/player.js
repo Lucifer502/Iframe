@@ -6,7 +6,8 @@ console.log(playbacks);
 
 let video_config_media  = await getStreams(playbacks)
 
-console.log(video_config_media)
+console.log(video_config_media.items.length)
+
 
 function getAllOrigins(url) {
     return new Promise(async (resolve, reject) => {
