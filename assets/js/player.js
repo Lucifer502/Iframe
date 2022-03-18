@@ -24,7 +24,7 @@ function getAllOrigins(url) {
   }
 
 async function getStreams(url) {
-const streams = await getAllOrigins(url);
+const streams = JSON.parse(await getAllOrigins(url));
 return streams
 }
 
