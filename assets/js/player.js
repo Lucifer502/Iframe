@@ -7,6 +7,7 @@ console.log(playbacks);
 let video_config_media  = await getStreams(playbacks)
 
 console.log(video_config_media.items.length)
+console.log(video_config_media);
 
 
 function getAllOrigins(url) {
