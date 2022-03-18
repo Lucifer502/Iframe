@@ -1,5 +1,6 @@
 window.addEventListener("message", async e => {
 
+let allorigins = "https://crp-proxy.herokuapp.com/get?url=";
  let playbacks = e.data.playbacks;
 console.log(playbacks);
 
