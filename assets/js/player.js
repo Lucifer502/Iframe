@@ -13,14 +13,16 @@ window.addEventListener("message", async e => {
 
 let allorigins = "https://crp-proxy.herokuapp.com/get?url=";
 let preservedState = null;
+let description = e.data.description;
 let href = e.data.href;
 let url = await getHTML(href)
 
 console.log(href)
-console.log(url)
+console.log(description)
 
+preservedState = JSON.parse(pegaString(url, "__INITIAL_STATE__ = ", ";"))
 
-
+console.log(preservedState)
 
 function getAllOrigins(url) {
     return new Promise(async (resolve, reject) => {
