@@ -11,6 +11,8 @@ window.addEventListener("message", async e => {
 
  const r = { 0: '720p', 1: '1080p', 2: '480p', 3: '360p', 4: '240p' };
 
+ let streamrgx = /_,(\d+.mp4),(\d+.mp4),(\d+.mp4),(\d+.mp4),(\d+.mp4),.*?master.m3u8/;
+  let streamrgx_three = /_,(\d+.mp4),(\d+.mp4),(\d+.mp4),.*?master.m3u8/;
  let allorigins = "https://crp-proxy.herokuapp.com/get?url=";
  let preservedState = null;
  let description = e.data.description;
