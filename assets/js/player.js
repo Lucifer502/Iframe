@@ -1,13 +1,25 @@
 window.addEventListener("message", async e => {
 
+
+
+  function pegaString(str, first_character, last_character) {
+    if (str.match(first_character + "(.*)" + last_character) == null) {
+      return null;
+    } else {
+      new_str = str.match(first_character + "(.*)" + last_character)[1].trim()
+      return new_str;
+    }
+  }
+
 let allorigins = "https://crp-proxy.herokuapp.com/get?url=";
- let playbacks = e.data.playbacks;
-console.log(playbacks);
+let preservedState = null;
+let href = e.data.href;
+let url = await getHTML(href)
 
-let video_config_media  = await getStreams(playbacks)
+console.log(href)
+console.log(url)
 
-console.log(video_config_media.items.length)
-console.log(video_config_media);
+
 
 
 function getAllOrigins(url) {
@@ -25,10 +37,13 @@ function getAllOrigins(url) {
     })
   }
 
-async function getStreams(url) {
-const streams = JSON.parse(await getAllOrigins(url));
-return streams
-}
+async function getHTML(url) {
+    const html = await getAllOrigins(url)
+    return html;
+  }
 
-
+  async function getStream(url) {
+    const episodeStream = JSON.parse(await getAllOrigins(url));
+    return episodeStream;
+  }
 });
