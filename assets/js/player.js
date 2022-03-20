@@ -14,16 +14,23 @@ window.addEventListener("message", async e => {
  let allorigins = "https://crp-proxy.herokuapp.com/get?url=";
  let url = await getconfigMedia(e.data.href);
  let description = e.data.description;
- let preservedState = JSON.parse(pegaString(url, "__INITIAL_STATE__ = ", ";"));
-  let id = preservedState.watch.id;
-  let playback = preservedState.content.byId[id].playback;
-  let thumbnail = preservedState.content.byId[id].images.thumbnail[0][7].source;
+ let preservedState = preservedState = JSON.parse(pegaString(url, "__INITIAL_STATE__ = ", ";"));
+ let id = preservedState.watch.id;
+ let playback = preservedState.content.byId[id].playback;
+ let thumbnail = preservedState.content.byId[id].images.thumbnail[0][7].source;
  let video_config_media = await getMetadata(playback);
-  let video_mp4_array = [];
+ let video_mp4_array = [];
  let user_lang = 'es-LA';
  let sources = [];
 
-video_mp4_array = mp4ListFromStream(video_config_media.streams.adaptive_hls[user_lang].url);
+ let dlSize = [];
+ let dlUrl = [];
+ for (let idx in r) {
+  dlSize[idx] = document.getElementById(r[idx] + "_down_size");
+  dlUrl[idx] = document.getElementById(r[idx] + "_down_url");
+ };
+
+ video_mp4_array = mp4ListFromStream(video_config_media.streams.adaptive_hls[user_lang].url);
 
  for (let idx of [1, 0, 2, 3, 4])
   sources.push({ file: video_mp4_array[idx], label: r[idx] + (idx < 2 ? '<sup><sup>HD</sup></sup>' : '') });
