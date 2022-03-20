@@ -14,7 +14,7 @@ window.addEventListener("message", async e => {
  let allorigins = "https://crp-proxy.herokuapp.com/get?url=";
  let url = await getconfigMedia(e.data.href);
  let description = e.data.description;
- let preservedState = preservedState = JSON.parse(pegaString(url, "__INITIAL_STATE__ = ", ";"));
+ let preservedState = JSON.parse(pegaString(url, "__INITIAL_STATE__ = ", ";"));
   let id = preservedState.watch.id;
   let playback = preservedState.content.byId[id].playback;
   let thumbnail = preservedState.content.byId[id].images.thumbnail[0][7].source;
