@@ -11,6 +11,7 @@ let video_config_media = await getConfigMedia(e.data.playback);
 let season_episodes = e.data.season_episodes;
 let video_mp4_array = []
 let streams = [];
+let media = [];
 let sources = []
 console.log(video_config_media,thumbnail);
 console.log(season_episodes)
@@ -136,5 +137,27 @@ streams.push(season_episodes['items'][i]['playback'])
 }
 
 console.log(streams)
+
+getStreamsEpisodes()
+
+async function getStreamsEpisodes(){
+for(let i in streams){
+ media.push(await getAllOrigins(streams[i]))
+}
+}
+
+
+console.log(media)
+
+function ListFromStream(url) {
+    const cleanUrl = url.replace('evs3', 'evs').replace(url.split("/")[2], "fy.v.vrv.co");
+    const res = [];
+    for (let i in r)
+      if (streamrgx_three.test(cleanUrl) && i <= 2) // por algum motivo alguns videos da CR tem apenas 3 resoluções
+        res.push(cleanUrl.replace(streamrgx_three, `_$${(parseInt(i)+1)}`))
+      else
+        res.push(cleanUrl.replace(streamrgx, `_$${(parseInt(i)+1)}`))
+    return res;
+  }
 
 });
