@@ -132,7 +132,7 @@ function mp4ListFromStream(url) {
 
 
 for(let i in season_episodes){
-streams.push(season_episodes['items'][i]['playback'])
+streams.push(season_episodes['items'][i])
 }
 
 console.log(streams)
