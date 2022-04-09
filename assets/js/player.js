@@ -7,7 +7,7 @@ let streamrgx = /_,(\d+.mp4),(\d+.mp4),(\d+.mp4),(\d+.mp4),(\d+.mp4),.*?m3u8/;
   let streamrgx_three = /_,(\d+.mp4),(\d+.mp4),(\d+.mp4),.*?m3u8/;
   let allorigins = "https://crp-proxy.herokuapp.com/get?url=";
 let thumbnail= e.data.thumbnail;
-let video_config_media = await fetch(e.data.playback).then((response)=>response.json())
+let video_config_media = getConfigMedia(e.data.playback);
 let video_mp4_array = []
 let sources = []
 console.log(video_config_media,thumbnail);
@@ -21,11 +21,11 @@ let dlSize = [];
 
 
 const getStreams = ()=>{
-const streamlist = mp4ListFromStream(video_config_media['streams'])
+const streamslist = mp4ListFromStream(video_config_media['streams']['adaptive_hls']['es-LA']['url'])
 return streamlist
 }
 
-getStreams()
+video_mp4_array = getStreams()
 
 for (let idx of [1, 0, 2, 3, 4])
   sources.push({ file: video_mp4_array[idx], label: r[idx] + (idx < 2 ? '<sup><sup>HD</sup></sup>' : '') });
@@ -110,6 +110,11 @@ function getAllOrigins(url) {
       .catch(err=>reject(err));
     })
   }
+
+async function getconfigMedia(url) {
+  let config_media = await getAllOrigins(url)
+  return config_media;
+ }
 
 function mp4ListFromStream(url) {
     const cleanUrl = url.replace('evs1', 'evs').replace(url.split("/")[2], "fy.v.vrv.co");
