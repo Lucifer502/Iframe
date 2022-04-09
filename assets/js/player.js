@@ -19,17 +19,13 @@ let dlSize = [];
   dlUrl[idx] = document.getElementById(r[idx] + "_down_url");
  };
 
-
-const getStreams = ()=>{
-const streamslist = mp4ListFromStream(video_config_media['streams']['adaptive_hls']['es-LA']['url'])
+const getStreams = async ()=>{
+const streamslist =await mp4ListFromStream(video_config_media['streams']['adaptive_hls']['es-LA']['url'])
 return streamlist
 }
 
-video_mp4_array = getStreams()
+video_mp4_array = await getStreams()
 
-for (let idx of [1, 0, 2, 3, 4])
-  sources.push({ file: video_mp4_array[idx], label: r[idx] + (idx < 2 ? '<sup><sup>HD</sup></sup>' : '') });
- startPlayer();
 function downloadStreams(id, intentos = 0) {
   let video_mp4_url = video_mp4_array[id];
 
@@ -55,6 +51,10 @@ function downloadStreams(id, intentos = 0) {
   http.open("HEAD", video_mp4_url, true);
   http.send(null);
  };
+
+for (let idx of [1, 0, 2, 3, 4])
+  sources.push({ file: video_mp4_array[idx], label: r[idx] + (idx < 2 ? '<sup><sup>HD</sup></sup>' : '') });
+ startPlayer();
 
  function startPlayer() {
   let playerInstance = jwplayer('player_div')
@@ -111,7 +111,7 @@ function getAllOrigins(url) {
     })
   }
 
-async function getconfigMedia(url) {
+async function getConfigMedia(url) {
   let config_media = await getAllOrigins(url)
   return config_media;
  }
