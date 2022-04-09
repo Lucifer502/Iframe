@@ -7,7 +7,7 @@ let streamrgx = /_,(\d+.mp4),(\d+.mp4),(\d+.mp4),(\d+.mp4),(\d+.mp4),.*?m3u8/;
   let streamrgx_three = /_,(\d+.mp4),(\d+.mp4),(\d+.mp4),.*?m3u8/;
   let allorigins = "https://crp-proxy.herokuapp.com/get?url=";
 let thumbnail= e.data.thumbnail;
-let video_config_media = getConfigMedia(e.data.playback);
+let video_config_media = await getConfigMedia(e.data.playback);
 let video_mp4_array = []
 let sources = []
 console.log(video_config_media,thumbnail);
@@ -113,7 +113,7 @@ function getAllOrigins(url) {
 
 async function getConfigMedia(url) {
   let config_media = await getAllOrigins(url)
-  return config_media;
+  return JSON.parse(config_media;)
  }
 
 function mp4ListFromStream(url) {
