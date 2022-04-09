@@ -146,16 +146,14 @@ for(let i in streams){
 }
 }
 
-let config = videoListFromStream(media)
+let config = videoListFromStream(media[0]['streams']['es-LA']['url'])
 console.log(media)
+console.log(config)
 
 
 
 function videoListFromStream(url) {
-   for(let i in media){
-
-
-}
+   console.log(url[0])
   }
 
 });
