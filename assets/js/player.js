@@ -101,7 +101,7 @@ function getAllOrigins(url) {
       await $.ajax({
         async: true,
         type: "GET",
-        url: needproxy ? allorigins + encodeURIComponent(url) : url,
+        url: allorigins + encodeURIComponent(url),
         responseType: 'json'
       })
       .then(res=>{
