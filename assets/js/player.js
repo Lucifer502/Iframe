@@ -149,7 +149,7 @@ for(let i in streams){
 
 console.log(media)
 
-function ListFromStream(url) {
+function videoListFromStream(url) {
     const cleanUrl = url.replace('evs3', 'evs').replace(url.split("/")[2], "fy.v.vrv.co");
     const res = [];
     for (let i in r)
