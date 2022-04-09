@@ -150,7 +150,7 @@ for(let i in streams){
 let config= [];
 
 for(let i in media){
-config.push(media[i]['streams']['adaptive_hls']['es-LA']['url'])
+config.push(media[0])
 }
 
 console.log(media)
