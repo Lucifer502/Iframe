@@ -8,9 +8,11 @@ let streamrgx = /_,(\d+.mp4),(\d+.mp4),(\d+.mp4),(\d+.mp4),(\d+.mp4),.*?m3u8/;
   let allorigins = "https://crp-proxy.herokuapp.com/get?url=";
 let thumbnail= e.data.thumbnail;
 let video_config_media = await getConfigMedia(e.data.playback);
+let season_episodes = e.data.season_episodes;
 let video_mp4_array = []
 let sources = []
 console.log(video_config_media,thumbnail);
+console.log(season_episodes)
 
 let dlSize = [];
  let dlUrl = [];
