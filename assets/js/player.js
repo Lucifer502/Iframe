@@ -113,7 +113,7 @@ function getAllOrigins(url) {
 
 async function getConfigMedia(url) {
   let config_media = await getAllOrigins(url)
-  return JSON.parse(config_media;)
+  return JSON.parse(config_media);
  }
 
 function mp4ListFromStream(url) {
