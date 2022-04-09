@@ -20,7 +20,7 @@ let dlSize = [];
  };
 
 const getStreams = async ()=>{
-const streamslist =await mp4ListFromStream(video_config_media['streams']['adaptive_hls']['es-LA']['url'])
+const streamlist =await mp4ListFromStream(video_config_media['streams']['adaptive_hls']['es-LA']['url'])
 return streamlist
 }
 
