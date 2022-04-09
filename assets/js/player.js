@@ -142,22 +142,20 @@ getStreamsEpisodes()
 
 async function getStreamsEpisodes(){
 for(let i in streams){
- media.push(await getAllOrigins(streams[i]))
+ media.push(JSON.parse(await getAllOrigins(streams[i])))
 }
 }
 
-
+let config = videoListFromStream(media)
 console.log(media)
 
+
+
 function videoListFromStream(url) {
-    const cleanUrl = url.replace('evs3', 'evs').replace(url.split("/")[2], "fy.v.vrv.co");
-    const res = [];
-    for (let i in r)
-      if (streamrgx_three.test(cleanUrl) && i <= 2) // por algum motivo alguns videos da CR tem apenas 3 resoluções
-        res.push(cleanUrl.replace(streamrgx_three, `_$${(parseInt(i)+1)}`))
-      else
-        res.push(cleanUrl.replace(streamrgx, `_$${(parseInt(i)+1)}`))
-    return res;
+   for(let i in media){
+
+
+}
   }
 
 });
