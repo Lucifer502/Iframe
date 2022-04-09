@@ -146,10 +146,15 @@ for(let i in streams){
 }
 }
 
-let config = videoListFromStream(media[0]['streams']['es-LA']['url'])
+
+let config= [];
+
+for(let i in media){
+config.push(media[i]['streams']['adaptive_hls']['es-LA']['url'])
+}
+
 console.log(media)
 console.log(config)
-
 
 
 function videoListFromStream(url) {
