@@ -157,7 +157,7 @@ setTimeout(()=>{
  }
  
  function listFromStream(url) {
-  const cleanUrl = url.replace('evs3', 'evs').replace(url.split("/")[2], "fy.v.vrv.co");
+  const cleanUrl = url.replace(url.split("/")[2], "fy.v.vrv.co");
   const res = [];
   for (let i in r)
    if (streamrgx_three.test(cleanUrl) && i <= 2) // por algum motivo alguns videos da CR tem apenas 3 resoluções
