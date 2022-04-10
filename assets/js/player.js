@@ -195,9 +195,9 @@ setTimeout(()=>{
      let sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
      if (fileSize == 0) return console.log('addSource#fileSize == 0');
      let i = parseInt(Math.floor(Math.log(fileSize) / Math.log(1024)));
-     if (i == 0) return console.log('addSource#i == 0');
+     if (i == 0)
      let return_fileSize = (fileSize / Math.pow(1024, i)).toFixed(1) + ' ' + sizes[i];
-     return console.log(`${r[id]} ${return_fileSize}`);
+     
     }
    } else if (http.readyState == 4 && intentos < 3)
     return setTimeout(() => download(id, intentos++), 5000);
