@@ -13,6 +13,11 @@ let video_mp4_array = []
 let streams = [];
 let media = [];
 let sources = []
+ let xd = season_episodes['items'].length;
+ let metadata = [];
+ var i = 0;
+ let stream = "";
+
 console.log(video_config_media,thumbnail);
 console.log(season_episodes)
 
@@ -131,34 +136,70 @@ function mp4ListFromStream(url) {
     return res;
   }
 
+var time = setInterval(() => {
+  stream = season_episodes['items'][i]['playback']
 
-for(let i in season_episodes['items']){
-streams.push(season_episodes['items'][i]['playback'])
-}
-
-console.log(streams)
-
-getStreamsEpisodes()
-
-async function getStreamsEpisodes(){
-for(let i in streams){
- media.push(JSON.parse(await getAllOrigins(streams[i])))
-}
-}
-
-
-let config= [];
-
-for(let i in media){
-config.push(media[0])
-}
-
-console.log(media)
-console.log(config)
-
-
-function videoListFromStream(url) {
-   console.log(url[0])
+  getStream(stream)
+  
+  i++
+  
+  if (i === xd) {
+   clearInterval(time)
   }
+ })
 
+async function getStream(url) {
+  const res = JSON.parse(await getAllOrigins(url));
+  listFromStream(res['streams']['adaptive_hls']['es-LA']['url'])
+ }
+ 
+ function listFromStream(url) {
+  const cleanUrl = url.replace('evs3', 'evs').replace(url.split("/")[2], "fy.v.vrv.co");
+  const res = [];
+  for (let i in r)
+   if (streamrgx_three.test(cleanUrl) && i <= 2) // por algum motivo alguns videos da CR tem apenas 3 resoluções
+    res.push(cleanUrl.replace(streamrgx_three, `_$${(parseInt(i)+1)}`))
+  else
+   res.push(cleanUrl.replace(streamrgx, `_$${(parseInt(i)+1)}`))
+  metadata.push(res)
+
+  if (metadata.length === xd) {
+   var position = 0;
+
+   var time = setInterval(() => {
+    for (let id of [0, 1, 2, 3, 4]) {
+     download(id, position)
+    }
+    position++
+    if (position === xd) {
+     clearInterval(time)
+    }
+   })
+  }
+ }
+
+ function download(id, i, intentos = 0) {
+  let video_mp4_url = metadata[i][id];
+  
+  let fileSize = "";
+  let http = (window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP"));
+  http.onreadystatechange = () => {
+   if (http.readyState == 4 && http.status == 200) {
+    fileSize = http.getResponseHeader('content-length');
+    if (!fileSize)
+     return setTimeout(() => download(id), 5000);
+    else {
+     let sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+     if (fileSize == 0) return console.log('addSource#fileSize == 0');
+     let i = parseInt(Math.floor(Math.log(fileSize) / Math.log(1024)));
+     if (i == 0) return console.log('addSource#i == 0');
+     let return_fileSize = (fileSize / Math.pow(1024, i)).toFixed(1) + ' ' + sizes[i];
+     return console.log(`${r[id]} ${return_fileSize}`);
+    }
+   } else if (http.readyState == 4 && intentos < 3)
+    return setTimeout(() => download(id, intentos++), 5000);
+  }
+  http.open("HEAD", video_mp4_url, true);
+  http.send(null);
+ };
 });
