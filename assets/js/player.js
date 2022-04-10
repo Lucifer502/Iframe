@@ -150,9 +150,10 @@ var time = setInterval(() => {
 
 async function getStream(url) {
   const res = JSON.parse(await getAllOrigins(url));
-console.log(res['streams']['adaptive_hls']['es-LA'])
-console.log(res['streams']['adaptive_hls']['es-LA']['url'])
+  
+setTimeout(()=>{
   listFromStream(res['streams']['adaptive_hls']['es-LA']['url'])
+},1000)
  }
  
  function listFromStream(url) {
