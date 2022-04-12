@@ -1,5 +1,6 @@
 window.addEventListener("message", async e => {
  
+let user_lang = e.data.lang;
 let video_stream_url = "";
 let video_mp4_array = streamlist(e.data.config);
 
