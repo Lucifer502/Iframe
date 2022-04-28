@@ -95,7 +95,7 @@ window.addEventListener("message", async e => {
  }
 
  Promise.all(promises).then(() => {
-  for (let idx of [0, 1, 2, 3, 4])
+  for (let idx of [1, 0, 2, 3, 4])
    sources.push({ file: video_m3u8_array[idx], label: r[idx] + (idx < 2 ? '<sup><sup>HD</sup></sup>' : '') });
   startPlayer();
  });
@@ -160,7 +160,7 @@ window.addEventListener("message", async e => {
   playerInstance
    .addButton(download_iconPath, download_tooltipText, download_ButtonClickAction, download_id);
 
-  for (let id of [0, 1, 2, 3, 4]) {
+  for (let id of [1, 0, 2, 3, 4]) {
    download(id);
    dlUrl[id].href = video_mp4_array[id];
    dlUrl[id].download = video_config_media['metadata']['title'];
