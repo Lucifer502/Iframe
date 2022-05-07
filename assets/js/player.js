@@ -1,4 +1,4 @@
-window.addEventListener('load', m3u8listfromstream, mp4listfromstream)
+window.addEventListener('message', m3u8listfromstream, mp4listfromstream)
 
 
 
