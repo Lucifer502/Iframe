@@ -8,6 +8,7 @@ function message(e) {
  let streamrgx = /_,(\d+.mp4),(\d+.mp4),(\d+.mp4),(\d+.mp4),(\d+.mp4),.*?m3u8/;
  let streamrgx_three = /_,(\d+.mp4),(\d+.mp4),(\d+.mp4),.*?m3u8/;
  let video_config_media = JSON.parse(e.data.video_config_media);
+ let video_id = video_config_media['metadata']['id'];
  let sources = [];
 
  const streamlist = video_config_media['streams'];
@@ -28,6 +29,22 @@ function message(e) {
   playerInstance.setup({
    'sources': sources,
   })
+
+  jwplayer().on('ready', e => {
+   document.body.querySelector('.loading_container').style.display = 'none';
+
+
+
+
+  })
+
+
+  setInterval(() => {
+   if (jwplayer().getState() == "playing")
+    localStorage.setItem(video_id, jwplayer().getPosition());
+  });
+
+
  }
 
  function getAllOrigins(url) {
@@ -52,9 +69,9 @@ function message(e) {
  async function m3u8listfromstream(url) {
   let m3u8list = []
   const master_m3u8 = await getAllOrigins(url);
-console.log(master_m3u8);
+
   if (master_m3u8) {
-  let streams = master_m3u8.match(rgx)
+   streams = master_m3u8.match(rgx)
    m3u8list = streams.filter((el, idx) => idx % 2 === 0)
   }
 
