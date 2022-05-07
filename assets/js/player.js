@@ -11,6 +11,7 @@ function message(e) {
  for (let stream of streamlist) {
   if (stream.format == 'adaptive_hls' && stream.hardsub_lang == 'esLA') {
    m3u8listfromstream(stream.url);
+   break;
   }
  }
 
