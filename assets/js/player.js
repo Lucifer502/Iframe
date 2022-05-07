@@ -52,9 +52,9 @@ function message(e) {
  async function m3u8listfromstream(url) {
   let m3u8list = []
   const master_m3u8 = await getAllOrigins(url);
-
+console.log(master_m3u8);
   if (master_m3u8) {
-   streams = master_m3u8.match(rgx)
+  let streams = master_m3u8.match(rgx)
    m3u8list = streams.filter((el, idx) => idx % 2 === 0)
   }
 
