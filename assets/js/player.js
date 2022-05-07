@@ -1,4 +1,4 @@
-window.addEventListener('load', message)
+window.addEventListener('message', message)
 
 function message(e) {
 
