@@ -1,17 +1,8 @@
 body {
+ width: 100%;
+ height: 100vh;
  margin: 0;
  padding: 0;
- direction: flex;
- justify-content: center;
- align-items: center;
-}
-
-video {
- outline: none;
-}
-
-#player_div {
- height: 100% !important;
 }
 
 #player_div .jw-button-color.jw-toggle:not(.jw-icon-cast),
@@ -37,17 +28,9 @@ video {
 
 .loading_container {
  width: 100%;
- height: 100%;
+ height: 232px;
+ background: #000;
  display: flex;
- justify-content: center;
  align-items: center;
- background-color: #000;
- position: absolute;
- z-index: 1000;
-}
-
-.loading_icon {
- height: 30px;
- width: 30px;
- border-radius: 100%;
+ justify-content: center;
 }
