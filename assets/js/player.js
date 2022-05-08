@@ -1,15 +1,17 @@
-window.addEventListener('message', message)
+window.addEventListener('message', async e => {
 
-async function message(e) {
 
  const r = { 0: '720p', 1: '1080p', 2: '480p', 3: '240p', 4: '360p' };
 
  let rgx = /http.*$/gm;
  let streamrgx = /_,(\d+.mp4),(\d+.mp4),(\d+.mp4),(\d+.mp4),(\d+.mp4),.*?m3u8/;
  let streamrgx_three = /_,(\d+.mp4),(\d+.mp4),(\d+.mp4),.*?m3u8/;
- let video_config_media = JSON.parse(e.data.video_config_media);
+ let video_config_media = e.data.video_config_media;
  let video_id = video_config_media['metadata']['id'];
  let up_next = e.data.up_next;
+ let video_mp4_array = [];
+ let video_stream_url = "";
+ let up_next_url = []
  let sources = [];
 
  let dlSize = [];
@@ -20,94 +22,118 @@ async function message(e) {
  };
 
  const streamlist = video_config_media['streams'];
+ const up_next_streams = up_next['streams'];
  for (let stream of streamlist) {
   if (stream.format == 'adaptive_hls' && stream.hardsub_lang == 'esLA') {
-   m3u8listfromstream(stream.url);
-   mp4listfromstream(stream.url);
-   break;
-  };
- };
+   video_stream_url = stream.url
+   video_mp4_array = mp4listfromstream(video_stream_url)
 
- function startplayer(video_m3u8_array) {
-  console.log(video_m3u8_array)
-  for (let idx of [1, 0, 2, 3, 4])
-   sources.push({ file: video_m3u8_array[idx], label: r[idx] + (idx < 2 ? '<sup><sup>HD</sup></sup>' : '') });
-
-  let playerInstance = jwplayer('player');
-  playerInstance.setup({
-   'sources': sources,
-  });
-
-  let rewind_iconPath = "assets/icon/replay-10s.svg";
-  let rewind_id = "rewind-video-button";
-  let rewind_tooltipText = "Regresar 10s";
-
-  let forward_iconPath = "assets/icon/forward-30s.svg";
-  let forward_id = "forward-video-button";
-  let forward_tooltipText = "Avanzar 30s";
-
-  let download_iconPath = "assets/icon/download_icon.svg";
-  let download_id = "download-video-button";
-  let download_tooltipText = "Download";
-
-  const modal = document.querySelector('.modal');
-
-  const rewind_ButtonClickAction = () => jwplayer().seek(jwplayer().getPosition() - 10)
-  const forward_ButtonClickAction = () => jwplayer().seek(jwplayer().getPosition() + 30)
-
-  function download_ButtonClickAction() {
-   if (jwplayer().getEnvironment().OS.mobile == true) {
-    modal.style.height = "170px";
-    modal.style.overflow = "auto";
-   }
-   modal.style.visibility = 'visible'
-
-   let id = jwplayer().getCurrentQuality()
-
-   let download = document.createElement('a')
-   download.setAttribute('href', sources[id]['file'])
-   download.click()
   }
+ }
 
-  playerInstance
-   .addButton(forward_iconPath, forward_tooltipText, forward_ButtonClickAction, forward_id)
-   .addButton(rewind_iconPath, rewind_tooltipText, rewind_ButtonClickAction, rewind_id)
-   .addButton(download_iconPath, download_tooltipText, download_ButtonClickAction, download_id);
-
-
-  jwplayer().on('ready', e => {
-   document.body.querySelector('.loading_container').style.display = 'none';
-
-  });
-
-  jwplayer().on('viewable', e => {
-   const old = document.querySelector('.jw-button-container > .jw-icon-rewind')
-   if (!old) return
-   const btn = query => document.querySelector(`div[button="${query}"]`)
-   const btnContainer = old.parentElement
-   btnContainer.insertBefore(btn(rewind_id), old)
-   btnContainer.insertBefore(btn(forward_id), old)
-   btnContainer.removeChild(old)
+ for (let idx of [1, 0, 2, 3, 4]) {
+  sources.push({
+   'file': video_mp4_array[idx],
+   'label': r[idx] +
+    (idx < 2 ? '<sup>HD</sup>' : '')
   })
+ }
 
-  setInterval(() => {
-   if (jwplayer().getState() == "playing")
-    localStorage.setItem(video_id, jwplayer().getPosition());
-  });
+ for (let stream of up_next_streams) {
+  if (stream.format == 'adaptive_hls' && stream.hardsub_lang == 'esLA') {
+   video_stream_url = stream.url
+   video_mp4_array = mp4listfromstream(video_stream_url)
+  }
+ }
 
-  jwplayer().on('error', e => {
-   console.log(e)
-   codes = { 232011: "https://i.imgur.com/OufoM33.mp4" };
-   if (codes[e.code]) {
-    jwplayer().load({
-     file: codes[e.code]
-    });
-    jwplayer().setControls(false);
-    jwplayer().setConfig({ repeat: true });
-    jwplayer().play();
-   }
-  });
- };
+ for (let idx of [1, 0, 2, 3, 4]) {
+  up_next_url.push({
+   'file': video_mp4_array[idx],
+   'label': r[idx] +
+    (idx < 2 ? '<sup>HD</sup>' : '')
+  })
+ }
+
+ let playerInstance = jwplayer('player');
+ playerInstance.setup({
+  'playlist': [{
+    'title': video_config_media['metadata']['title'],
+    'image': video_config_media['thumbnail']['url'],
+    'sources': sources,
+     },
+     'up_next' ? {
+    'sources': up_next_url,
+     } : {}
+     ]
+ })
+
+ jwplayer().setControls(true)
+
+ let rewind_iconPath = "assets/icon/replay-10s.svg";
+ let rewind_id = "rewind-video-button";
+ let rewind_tooltipText = "Regresar 10s";
+
+ let forward_iconPath = "assets/icon/forward-30s.svg";
+ let forward_id = "forward-video-button";
+ let forward_tooltipText = "Avanzar 30s";
+
+ let download_iconPath = "assets/icon/download_icon.svg";
+ let download_id = "download-video-button";
+ let download_tooltipText = "Download";
+
+ const modal = document.querySelector('.modal');
+ const close = document.querySelector('.close');
+
+ const rewind_ButtonClickAction = () => jwplayer().seek(jwplayer().getPosition() - 10)
+ const forward_ButtonClickAction = () => jwplayer().seek(jwplayer().getPosition() + 30)
+
+ function download_ButtonClickAction() {
+  modal.style.visibility = 'visible'
+ }
+
+ close.addEventListener('click', e => {
+  modal.style.visibility = 'hidden';
+ })
+
+ playerInstance
+  .addButton(forward_iconPath, forward_tooltipText, forward_ButtonClickAction, forward_id)
+  .addButton(rewind_iconPath, rewind_tooltipText, rewind_ButtonClickAction, rewind_id)
+  .addButton(download_iconPath, download_tooltipText, download_ButtonClickAction, download_id);
+
+
+ jwplayer().on('ready', e => {
+  document.body.querySelector('.loading_container').style.display = 'none';
+
+ });
+
+ jwplayer().on('viewable', e => {
+  const old = document.querySelector('.jw-button-container > .jw-icon-rewind')
+  if (!old) return
+  const btn = query => document.querySelector(`div[button="${query}"]`)
+  const btnContainer = old.parentElement
+  btnContainer.insertBefore(btn(rewind_id), old)
+  btnContainer.insertBefore(btn(forward_id), old)
+  btnContainer.removeChild(old)
+ })
+
+ setInterval(() => {
+  if (jwplayer().getState() == "playing")
+   localStorage.setItem(video_id, jwplayer().getPosition());
+ });
+
+ jwplayer().on('error', e => {
+  console.log(e)
+  codes = { 232011: "https://i.imgur.com/OufoM33.mp4" };
+  if (codes[e.code]) {
+   jwplayer().load({
+    file: codes[e.code]
+   });
+   jwplayer().setControls(false);
+   jwplayer().setConfig({ repeat: true });
+   jwplayer().play();
+  }
+ });
+
 
  function getAllOrigins(url) {
   return new Promise(async (resolve, reject) => {
@@ -125,6 +151,7 @@ async function message(e) {
  };
 
  function linkdDownload(video_mp4_array, id) {
+
   let video_mp4_url = video_mp4_array[id];
 
   let fileSize = "";
@@ -160,8 +187,10 @@ async function message(e) {
     res.push(cleanUrl.replace(streamrgx, `_$${(parseInt(i)+1)}`));
 
   for (let id in r) {
+   dlUrl[id].href = res[id];
    linkdDownload(res, id);
   };
+  return res;
  };
 
  async function m3u8listfromstream(url) {
@@ -179,7 +208,7 @@ async function message(e) {
    m3u8list[i] = blobStream(video_m3u8);
   };
   res.push(buildM3u8(m3u8list));
-  return startplayer(res);
+  return res;
  };
 
  function blobStream(stream) {
@@ -203,4 +232,4 @@ async function message(e) {
    '\n' + m3u8list[4];
   return blobStream(video_m3u8);
  };
-};
+});
