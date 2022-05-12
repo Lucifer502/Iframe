@@ -9,6 +9,7 @@ window.addEventListener('message', async e => {
  let video_config_media = e.data.video_config_media;
  let up_next = e.data.up_next;
  let up_next_enable = e.data.up_next_enable;
+ let user_lang=e.data.user_lang;
  let video_mp4_array = []
  let video_m3u8_array = [];
  let video_stream_url = "";
