@@ -40,7 +40,9 @@ window.addEventListener('message', async e => {
 
  jwplayer().on('ready', e => {
   document.body.querySelector(".loading_container").style.display = "none";
+setTimeout(()=>{
    jwplayer().play();
+},2000)
  });
 
  function getAllOrigins(url) {
