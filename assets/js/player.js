@@ -35,7 +35,7 @@ window.addEventListener('message', async e => {
  }]
  }).on('playlistItem', e => {
   console.log(sources)
-   jwplayer().play();
+   
  })
 
  jwplayer().on('ready', e => {
