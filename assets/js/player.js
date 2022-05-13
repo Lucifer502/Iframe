@@ -40,6 +40,7 @@ window.addEventListener("message", async e => {
   jwplayer().on('ready', e => {
 
 setTimeout(()=>{
+console.log("fullscreen")
 jwplayer().setFullscreen()
 },3000)
    document.querySelector('.loading_container').style.display = "none"
