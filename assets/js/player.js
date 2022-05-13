@@ -35,22 +35,13 @@ window.addEventListener("message", async e => {
    "playlist": [{
     "sources": sources,
    }]
-  }).play()
-//jwplayer().setFullscreen()
-  console.log(sources)
-  console.log(jwplayer())
-
-  if (up_next_enable) {
-   localStorage.setItem("fullscreen", true)
-  }
+  }).setFullscreen()
 
   jwplayer().on('ready', e => {
-jwplayer().setFullscreen();
-   if (localStorage.getItem("fullscreen") == "true") {
-     localStorage.setItem("fullscreen",false)
-    jwplayer().setFullscreen()
-   }
 
+setTimeout(()=>{
+jwplayer().setFullscreen()
+},3000)
    document.querySelector('.loading_container').style.display = "none"
 
   })
