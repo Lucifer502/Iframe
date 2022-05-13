@@ -6,6 +6,7 @@ window.addEventListener("message", async e => {
  let streamrgx_three = /_,(\d+.mp4),(\d+.mp4),(\d+.mp4),.*?m3u8/;
  let video_config_media = JSON
   .parse(e.data.video_config_media);
+ let user_lang = e.data.lang;
  let up_next_enable = e.data.up_next_enable;
 
  const streamlist = video_config_media['streams']
@@ -14,10 +15,11 @@ window.addEventListener("message", async e => {
  function getStreamsUrl() {
   return new Promise((resolve) => {
    for (let stream of streamlist) {
-    if (stream.format == "adaptive_hls") {
+    if (stream.format == "adaptive_hls" && stream.hardsub_lang == user_lang) {
      console.log(stream.url)
      video_stream_url = stream.url
      video_mp4_array = mp4ListFromStream(video_stream_url)
+     break;
      resolve(startPlayer(video_mp4_array))
     }
    }
@@ -43,6 +45,7 @@ window.addEventListener("message", async e => {
   jwplayer().on('ready', e => {
    document.querySelector('.loading_container').style.display = "none"
    if (localStorage.getItem("fullscreen") == "true") {
+   conslole.log("Fullscreen());
     jwplayer().setFullscreen();
    }
   })
