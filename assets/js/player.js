@@ -4,8 +4,7 @@ window.addEventListener("message", async e => {
 
  let streamrgx = /_,(\d+.mp4),(\d+.mp4),(\d+.mp4),(\d+.mp4),(\d+.mp4),.*?m3u8/;
  let streamrgx_three = /_,(\d+.mp4),(\d+.mp4),(\d+.mp4),.*?m3u8/;
- let video_config_media = JSON
-  .parse(e.data.video_config_media);
+ let video_config_media = JSON.parse(e.data.video_config_media);
  let user_lang = e.data.lang;
  let up_next_enable = e.data.up_next_enable;
 
