@@ -38,16 +38,19 @@ window.addEventListener("message", async e => {
    }]
   }).play()
   console.log(sources)
+
   if (up_next_enable) {
    localStorage.setItem("fullscreen", true)
   }
 
   jwplayer().on('ready', e => {
-   document.querySelector('.loading_container').style.display = "none"
+
    if (localStorage.getItem("fullscreen") == "true") {
-   conslole.log("Fullscreen());
-    jwplayer().setFullscreen();
+    jwplayer().setFullscreen()
    }
+
+   document.querySelector('.loading_container').style.display = "none"
+
   })
  }
 
