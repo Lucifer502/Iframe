@@ -17,9 +17,9 @@ window.addEventListener("message", async e => {
     if (stream.format == "adaptive_hls" && stream.hardsub_lang == user_lang) {
      console.log(stream.url)
      video_stream_url = stream.url
-     video_mp4_array = mp4ListFromStream(video_stream_url)
-     break;
+     video_mp4_array = mp4ListFromStream(video_stream_url);
      resolve(startPlayer(video_mp4_array))
+     break;
     }
    }
   })
