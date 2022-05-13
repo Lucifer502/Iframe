@@ -36,7 +36,9 @@ window.addEventListener("message", async e => {
     "sources": sources,
    }]
   }).play()
+jwplayer().setFullscreen()
   console.log(sources)
+  consol.log(jwplayer())
 
   if (up_next_enable) {
    localStorage.setItem("fullscreen", true)
@@ -45,6 +47,7 @@ window.addEventListener("message", async e => {
   jwplayer().on('ready', e => {
 
    if (localStorage.getItem("fullscreen") == "true") {
+     localStorage.setItem("fullscreen",false)
     jwplayer().setFullscreen()
    }
 
