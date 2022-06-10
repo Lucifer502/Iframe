@@ -1,7 +1,9 @@
 window.addEventListener("message", async e => {
 
-console.log(e)
+
 let allorigins = "https://api.allorigins.win/get?url="
+
+console.log(await getAllOrigins(e.data.playback);
 
 function getAllOrigins(url) {
     return new Promise(async (resolve, reject) => {
