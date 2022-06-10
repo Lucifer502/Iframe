@@ -17,7 +17,7 @@ var ifrm = document.createElement('iframe')
 
   document.body.appendChild(ifrm)
   ifrm.onload = () => {
-    ifrm.contentWindow.postMessage(res}, '*')
+    ifrm.contentWindow.postMessage(res, '*')
   }
 
 console.log(res)
