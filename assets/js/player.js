@@ -11,6 +11,7 @@ window.addEventListener('message', async e => {
 
     const request = await getAllOrigins(playback)
     const response = await request.json()
+console.log(response)
     const stream = response.streams.adaptive_hls['es-LA'].url
 
     video_m3u8_array = await m3u8ListFromStream(stream)
