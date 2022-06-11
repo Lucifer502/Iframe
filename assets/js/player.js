@@ -10,7 +10,7 @@ window.addEventListener('message', async e => {
     let sources = [];
 
     const request = await getAllOrigins(playback)
-    const response = await request.json()
+    const response = JSON.parse(await request)
 console.log(response)
     const stream = response.streams.adaptive_hls['es-LA'].url
 
