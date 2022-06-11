@@ -9,7 +9,7 @@ window.addEventListener('message', async e => {
     let playback = e.data.playback
     let sources = [];
 
-    const request = await fetch(playback)
+    const request = await getAllOrigins(playback)
     const response = await request.json()
     const stream = response.streams.adaptive_hls['es-LA'].url
 
@@ -132,12 +132,19 @@ window.addEventListener('message', async e => {
     }
 
     function getAllOrigins(url) {
-      return new Promise(async (resolve) => {
-        let request = await fetch(url)
-        let response = await request.text()
-        resolve(response)
-      })
-    }
+    return new Promise(async (resolve, reject) => {
+      await $.ajax({
+          async: true,
+          type: "GET",
+          url: allorigins + encodeURIComponent(url),
+          responseType: 'json'
+        })
+        .then(res => {
+          resolve(res.contents ?? res)
+        })
+        .catch(err => reject(err));
+    })
+  }
 
     function mp4ListFromStream(url) {
       const cleanUrl = url.replace('evs1', 'evs').replace(url.split("/")[2], "fy.v.vrv.co");
