@@ -50,90 +50,9 @@ console.log(response)
         "primary": "html5",
         "cast": {},
         "playbackRateControls": [0.5, 0.75, 1, 1.25, 1.5, 2]
-      }).on('playlistItem', e => {
-        if (e.index > 0 && next_enable) {
-          jwplayer().setControls(false);
-          jwplayer().setConfig({
-            repeat: true
-          });
-          jwplayer().play();
-          localStorage.setItem("next_up", true);
-          localStorage.setItem("next_up_fullscreen", jwplayer().getFullscreen());
-          window.top.location.href = next;
-        }
       })
-
-      let rewind_iconPath = "assets/icon/replay-10s.svg";
-      let rewind_id = "rewind-video-button";
-      let rewind_tooltipText = "Regresar 10s";
-
-      let forward_iconPath = "assets/icon/forward-30s.svg";
-      let forward_id = "forward-video-button";
-      let forward_tooltipText = "Avanzar 30s";
-
-      let download_iconPath = "assets/icon/download_icon.svg";
-      let download_id = "download-video-button";
-      let download_tooltipText = "Descargar";
-
-      const rewind_ButtonClickAction = () => jwplayer().seek(jwplayer().getPosition() - 10)
-      const forward_ButtonClickAction = () => jwplayer().seek(jwplayer().getPosition() + 30)
-
-      function downloadButton() {
-        modal.style.visibility = 'visible';
-      }
-      const modal = document.querySelector('.modal')
-      const cerrar = document.querySelector('.close')
-
-      cerrar.addEventListener('click', e => {
-        modal.style.visibility = 'hidden';
-      })
-
-      playerInstance
-        .addButton(forward_iconPath, forward_tooltipText, forward_ButtonClickAction, forward_id)
-        .addButton(rewind_iconPath, rewind_tooltipText, rewind_ButtonClickAction, rewind_id)
-        .addButton(download_iconPath, download_tooltipText, downloadButton, download_id);
-
-      jwplayer().on('ready', e => {
-        if (localStorage.getItem(video_id) != null) {
-          const t = localStorage.getItem(video_id);
-          document.getElementsByTagName("video")[0].currentTime = t >= 5 ? t - 5 : t;
-        }
-
-        if (localStorage.getItem("next_up") === "true") {
-          localStorage.setItem("next_up", false)
-          jwplayer().play();
-        }
-
-        var loading = document.querySelector(".loading_container")
-             console.log(loading)
-      });
-
-      jwplayer().on('viewable', e => {
-        const old = document.querySelector('.jw-button-container > .jw-icon-rewind')
-        if (!old) return
-        const btn = query => document.querySelector(`div[button="${query}"]`)
-        const btnContainer = old.parentElement
-        btnContainer.insertBefore(btn(rewind_id), old)
-        btnContainer.insertBefore(btn(forward_id), old)
-        btnContainer.removeChild(old)
-      })
-
-      jwplayer().on('error', e => {
-        console.log(e)
-        codes = { 232011: "https://i.imgur.com/OufoM33.mp4" };
-        if (codes[e.code]) {
-          jwplayer().load({
-            file: codes[e.code]
-          });
-          jwplayer().setControls(false);
-          jwplayer().setConfig({ repeat: true });
-          jwplayer().play();
-        }
-      });
-
-      setInterval(() => {
-        if (jwplayer().getState() == "playing")
-          localStorage.setItem(video_id, jwplayer().getPosition());
+       jwplayer().on('ready',e=>{
+        document.querySelector('.loading_container').style.display='none';
       });
     }
 
