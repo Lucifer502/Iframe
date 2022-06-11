@@ -7,6 +7,8 @@ window.addEventListener('message', async e => {
     let streamrgx_three = /_,(\d+.mp4),(\d+.mp4),(\d+.mp4),.*?m3u8/;
     let allorigins = "https://crp-proxy.herokuapp.com/get?url=";
     let playback = e.data.playback
+    let title = e.data.title
+    let thumbnail = e.data.thumbnail
     let sources = [];
 
     const request = await getAllOrigins(playback)
@@ -30,8 +32,8 @@ console.log(response)
       playerInstance.setup({
         "playlist": [
           {
-            "title": video_config_media['metadata']['title'],
-            "image": video_config_media['thumbnail']['url'],
+            "title": title,
+            "image": thumbnail,
             "sources": sources,
         },
         next_enable ? {
