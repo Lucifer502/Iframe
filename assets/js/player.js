@@ -104,7 +104,8 @@ console.log(response)
           jwplayer().play();
         }
 
-        document.querySelector(".loading_container").style.display = "none";
+        var loading = document.querySelector(".loading_container")
+             console.log(loading)
       });
 
       jwplayer().on('viewable', e => {
